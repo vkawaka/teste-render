@@ -209,6 +209,7 @@ CREATE TABLE tbl_pedido_produto (
   id_pedido_produto INT NOT NULL AUTO_INCREMENT,
   id_produto INT NOT NULL,
   id_pedido INT NOT NULL,
+  status_view TINYINT NOT NULL,
   PRIMARY KEY (id_pedido_produto),
   INDEX fk_tbl_pedido_produto_tbl_produto_id (id_produto ASC),
   INDEX fk_tbl_pedido_produto_tbl_pedidos_id (id_pedido ASC),
@@ -220,6 +221,10 @@ CREATE TABLE tbl_pedido_produto (
     REFERENCES tbl_pedidos (id_pedido))
 ENGINE = InnoDB;
 
+select tbl_produto.nome, tbl_produto.descricao, tbl_produto.valor, tbl_pedidos.desconto from tbl_produto 
+join tbl_pedido_produto on tbl_pedido_produto.id_produto = tbl_produto.id_produto 
+join tbl_pedidos on tbl_pedido_produto.id_pedido = tbl_pedidos.id_pedido
+where tbl_pedidos.id_cliente = 3;
 
 -- -----------------------------------------------------
 -- Table tbl_categoria_produto`
@@ -239,7 +244,24 @@ CREATE TABLE tbl_categoria_produto (
     REFERENCES tbl_produto (id_produto))
 ENGINE = InnoDB;
 
+SELECT tbl_categoria.id_categoria, nome FROM tbl_categoria JOIN tbl_categoria_produto ON tbl_categoria.id_categoria = tbl_categoria_produto.id_categoria WHERE id_produto = 12;
 
+
+UPDATE tbl_produto SET
+                nome = 'Super suco teste insert sla quaantos',
+                valor = '10.5',
+                foto = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUtD_rxSU-UNbNWWcK8leZLdIl1UkX4WvclGEHOGixnYrfSmAj8D_DaGxnpa7OnhSNixY&usqp=CAU',
+                tabela_nutricional = 'https://faladanutri.com.br/wp-content/uploads/2021/10/Tabela-das-informacoes-nutricionais-do-suco-verde.png',
+                quantidade = '30',
+                descricao = 'Para acompanhar sua refeição conheça nosso SS, este super suco de 500ml ajuda a desintoxicar o fígado'
+                WHERE id_produto = 19;
+
+INSERT INTO tbl_pedido_produto (id_produto, id_pedido) VALUES (19, 3);
+
+SELECT tbl_pedidos.id_pedido, tbl_cliente.nome, tbl_pedidos.data_pedido FROM tbl_pedidos
+JOIN tbl_pedido_produto ON tbl_pedidos.id_pedido = tbl_pedido_produto.id_pedido
+JOIN tbl_cliente ON tbl_pedidos.id_cliente = tbl_cliente.id_cliente
+WHERE id_produto = 19;
 -- -----------------------------------------------------
 -- Table `tbl_ingrediente_produto`
 -- -----------------------------------------------------
@@ -390,6 +412,8 @@ SELECT * FROM tbl_ingrediente;
 
 -- Consulta para recuperar dados da tabela tbl_categoria
 SELECT * FROM tbl_categoria;
+
+INSERT INTO tbl_categoria_produto (id_categoria, id_produto) VALUES ('3', '8');
 
 -- Consulta para recuperar dados da tabela tbl_endereco
 SELECT * FROM tbl_endereco;
