@@ -1,0 +1,25 @@
+{
+  "name": "back-lanchonete",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "prisma": "^5.14.0"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  }
+}
