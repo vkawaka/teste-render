@@ -29,6 +29,17 @@ create trigger tgrApagarPedido
 			BEGIN
 				delete from tbl_pedido_produto where id_pedido = old.id_pedido;
             END$
+
+DELIMITER $
+
+create trigger tgrApagarProduto
+	before delete on tbl_produto
+		for each row 
+			BEGIN
+				delete from tbl_pedido_produto where id_produto = old.id_produto;				
+                delete from tbl_ingrediente_produto where id_produto= old.id_produto;				
+                delete from tbl_categoria_produto where id_produto = old.id_produto;
+            END$
             
 show triggers;
 

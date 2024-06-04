@@ -158,53 +158,6 @@ const deletePedido = async(id) =>{
         }
 }
 
-const insertPedidoProduto = async(id_produto, id_pedido) => {
-    try {
-        let sql = `INSERT INTO tbl_pedido_produto (id_produto, id_pedido) VALUES ('${id_produto}', '${id_pedido}')`
-        // console.log(sql);
-
-        let rs = await prisma.$executeRawUnsafe(sql)
-
-        if(rs)
-            return rs
-        else
-            return false
-    } catch (error) {
-        return false
-    }
-}
-const selectCategoriaByProduto = async(id) => {
-    try {
-        let sql = `SELECT tbl_pedidos.id_pedido, tbl_cliente.nome, tbl_pedidos.data_pedido FROM tbl_pedidos
-        JOIN tbl_pedido_produto ON tbl_pedidos.id_pedido = tbl_pedido_produto.id_pedido
-        JOIN tbl_cliente ON tbl_pedidos.id_cliente = tbl_cliente.id_cliente
-        WHERE id_produto = ${id};`
-        // console.log(sql);
-        let rs = await prisma.$queryRawUnsafe(sql)
-        return rs
-        
-    } catch (error) {
-        return false
-    }
-}
-const deleteCategoriaProduto = async(id) => {
-    try {
-        let sql = `DELETE FROM tbl_pedido_produto WHERE id_produto = ${id}`
-        console.log("teste " + sql);
-
-
-        let rs = await prisma.$queryRawUnsafe(sql)
-        // console.log(sql);
-
-
-        if(rs)
-            return rs
-        else
-            return false
-    } catch (error) {
-        return false
-    }
-}
 
 module.exports ={
     selectAllPedidos,
